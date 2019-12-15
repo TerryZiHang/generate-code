@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.szh.mapper.VideoInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.szh.beans.VideoInfo" >
+    <id column="mark_id" property="markId" jdbcType="VARCHAR" />
+    <result column="description_title" property="descriptionTitle" jdbcType="VARCHAR" />
+    <result column="description_content" property="descriptionContent" jdbcType="VARCHAR" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mark_id, description_title, description_content, video_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_video_info
+    where mark_id = #{markId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_video_info
+    where mark_id = #{markId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.szh.beans.VideoInfo" >
+    insert into t_video_info (mark_id, description_title, description_content, 
+      video_url)
+    values (#{markId,jdbcType=VARCHAR}, #{descriptionTitle,jdbcType=VARCHAR}, #{descriptionContent,jdbcType=VARCHAR}, 
+      #{videoUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.szh.beans.VideoInfo" >
+    insert into t_video_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="markId != null" >
+        mark_id,
+      </if>
+      <if test="descriptionTitle != null" >
+        description_title,
+      </if>
+      <if test="descriptionContent != null" >
+        description_content,
+      </if>
+      <if test="videoUrl != null" >
+        video_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="markId != null" >
+        #{markId,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionTitle != null" >
+        #{descriptionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionContent != null" >
+        #{descriptionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.szh.beans.VideoInfo" >
+    update t_video_info
+    <set >
+      <if test="descriptionTitle != null" >
+        description_title = #{descriptionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionContent != null" >
+        description_content = #{descriptionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mark_id = #{markId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.szh.beans.VideoInfo" >
+    update t_video_info
+    set description_title = #{descriptionTitle,jdbcType=VARCHAR},
+      description_content = #{descriptionContent,jdbcType=VARCHAR},
+      video_url = #{videoUrl,jdbcType=VARCHAR}
+    where mark_id = #{markId,jdbcType=VARCHAR}
+  </update>
+</mapper>
